@@ -14,6 +14,13 @@ function pageLoader(){
     for (let btn of colorButtons){
         btn.addEventListener('click', changeBackgroundColor);
     }
+
+    // Get the nav links and add a changeView event listener
+    let navLinks = document.getElementsByClassName('nav-link');
+    // console.log(navLinks);
+    for (let link of navLinks){
+        link.addEventListener('click', changeView)
+    }
 }
 
 
@@ -26,4 +33,23 @@ function changeBackgroundColor(e){
     } else {
         document.body.style.backgroundColor = '#FFF897'
     }
+}
+
+
+// Event Listener that will change the view
+function changeView(e){
+    console.log('Clicked!')
+    // turn off the element(s) that are visible
+    const toTurnOff = document.getElementsByClassName('is-visible');
+    for (let element of toTurnOff){
+        element.classList.replace('is-visible', 'is-invisible');
+        // get the nav link associated with the element
+        let navLink = document.getElementsByName(element.id)[0]
+        navLink.classList.remove('active')
+    }
+    // Turn on the element based on the link that we clicked
+    let idToTurnOn = e.target.name;
+    let toTurnOn = document.getElementById(idToTurnOn);
+    toTurnOn.classList.replace('is-invisible', 'is-visible');
+    e.target.classList.add('active');
 }
